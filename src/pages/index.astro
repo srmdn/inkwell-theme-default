@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { listPosts, formatDate } from '../lib/content';
+
+const posts = listPosts();
+const siteName = import.meta.env.SITE_NAME || 'My Blog';
+---
+
+<BaseLayout title={siteName} description={import.meta.env.SITE_DESCRIPTION}>
+  {posts.length === 0 ? (
+    <p style="color: var(--color-muted)">No posts yet.</p>
+  ) : (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li class="post-list-item">
+          <h2>
+            <a href={`/blog/${post.slug}`}>{post.frontmatter.title}</a>
+          </h2>
+          <p class="post-meta">{formatDate(post.frontmatter.publishDate)}</p>
+          {post.frontmatter.description && (
+            <p class="post-description">{post.frontmatter.description}</p>
+          )}
+          {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+            <div class="tags">
+              {post.frontmatter.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>

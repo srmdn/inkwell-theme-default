@@ -1,0 +1,35 @@
+---
+import { marked } from 'marked';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPost, formatDate } from '../../lib/content';
+
+const { slug } = Astro.params;
+
+if (!slug) return Astro.redirect('/404');
+
+const post = getPost(slug);
+if (!post) return Astro.redirect('/404');
+
+const html = marked(post.body);
+---
+
+<BaseLayout title={post.frontmatter.title} description={post.frontmatter.description}>
+  <a href="/" class="back-link">← Back</a>
+
+  <article>
+    <header class="post-header">
+      <h1>{post.frontmatter.title}</h1>
+      <p class="post-meta">
+        {formatDate(post.frontmatter.publishDate)}
+        {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+          <span>
+            {' · '}
+            {post.frontmatter.tags.join(', ')}
+          </span>
+        )}
+      </p>
+    </header>
+
+    <div class="post-content" set:html={html} />
+  </article>
+</BaseLayout>
