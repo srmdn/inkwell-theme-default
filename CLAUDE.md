@@ -55,12 +55,25 @@ filesystem via `CONTENT_DIR`. Ships with FolioCMS as the reference theme.
 ## Environment: LOCAL DEV
 
 ## Conventions
-- Secrets in `.env` — never committed
+- Secrets in `.env`: never committed
 - `.env.example` committed with all variable names, no real values
-- Build output in `dist/` — gitignored
+- Build output in `dist/`: gitignored
 - No server paths, IPs, or domain names in committed files
-- Public repo — keep all content generic and portable
+- Public repo: keep all content generic and portable
 
 ## Do not modify without confirming
 - Theme contract interface (frontmatter fields, content dir structure)
   These are defined in the FolioCMS core repo `docs/theme-contract.md`
+
+## Repo visibility: PUBLIC (open source)
+This repo is public. CLAUDE.md and all docs must contain no server IPs,
+real domains, internal paths, or personal infrastructure references.
+
+## Writing Conventions
+- No em dashes (`—`) in commit messages, docs, README, or any written output.
+- Use a colon, semicolon, or rewrite the sentence instead.
+
+## Testing
+Run before every commit: `npm run check` (TypeScript check) and `npm run build` (build verification).
+All checks must pass before committing.
+Write tests for new logic in the same commit if a test framework is in use.
