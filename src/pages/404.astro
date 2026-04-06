@@ -5,7 +5,7 @@ import { getSettings } from '../lib/content';
 const settings = await getSettings();
 ---
 
-<BaseLayout title="Page Not Found" siteName={settings.siteName}>
+<BaseLayout title="Page Not Found" settings={settings}>
   <div class="not-found">
     <h1>404</h1>
     <p>This page does not exist.</p>

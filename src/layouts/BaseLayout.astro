@@ -1,11 +1,14 @@
 ---
+import type { SiteSettings } from '../lib/types';
+
 interface Props {
   title: string;
   description?: string;
-  siteName: string;
+  settings: SiteSettings;
 }
 
-const { title, description, siteName } = Astro.props;
+const { title, description, settings } = Astro.props;
+const pageTitle = title === settings.siteName ? settings.siteName : `${title} | ${settings.siteName}`;
 ---
 
 <!doctype html>
@@ -15,19 +18,34 @@ const { title, description, siteName } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content="FolioCMS" />
     {description && <meta name="description" content={description} />}
-    <title>{title} — {siteName}</title>
+    <title>{pageTitle}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lora:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="site-wrapper">
-      <header>
-        <a href="/" class="site-name">{siteName}</a>
+      <header class="site-header">
+        <a href="/" class="site-name">{settings.siteName}</a>
       </header>
       <main>
         <slot />
       </main>
-      <footer>
-        <p>Powered by <a href="https://github.com/srmdn/foliocms">FolioCMS</a></p>
+      <footer class="site-footer">
+        <span class="footer-credit">
+          Powered by <a href="https://github.com/srmdn/foliocms">FolioCMS</a>
+        </span>
+        {(settings.socialGithub || settings.socialTwitter || settings.socialLinkedin) && (
+          <div class="social-links">
+            {settings.socialGithub && <a href={settings.socialGithub} target="_blank" rel="noopener noreferrer">GitHub</a>}
+            {settings.socialTwitter && <a href={settings.socialTwitter} target="_blank" rel="noopener noreferrer">Twitter</a>}
+            {settings.socialLinkedin && <a href={settings.socialLinkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>}
+          </div>
+        )}
       </footer>
     </div>
   </body>

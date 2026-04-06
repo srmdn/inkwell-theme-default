@@ -63,6 +63,9 @@ export async function getSettings(): Promise<SiteSettings> {
   return {
     siteName: data.site_name || 'My Blog',
     siteDescription: data.site_description || '',
+    socialGithub: data.social_github || '',
+    socialTwitter: data.social_twitter || '',
+    socialLinkedin: data.social_linkedin || '',
   };
 }
 

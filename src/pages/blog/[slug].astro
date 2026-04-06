@@ -13,8 +13,12 @@ if (!post) return Astro.redirect('/404');
 const html = marked(post.body);
 ---
 
-<BaseLayout title={post.frontmatter.title} description={post.frontmatter.description} siteName={settings.siteName}>
-  <a href="/" class="back-link">← Back</a>
+<BaseLayout
+  title={post.frontmatter.title}
+  description={post.frontmatter.description}
+  settings={settings}
+>
+  <a href="/" class="back-link">&#8592; All posts</a>
 
   <article>
     <header class="post-header">
@@ -22,10 +26,7 @@ const html = marked(post.body);
       <p class="post-meta">
         {formatDate(post.frontmatter.publishDate)}
         {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-          <span>
-            {' · '}
-            {post.frontmatter.tags.join(', ')}
-          </span>
+          <span> &middot; {post.frontmatter.tags.join(', ')}</span>
         )}
       </p>
     </header>

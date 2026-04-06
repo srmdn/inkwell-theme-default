@@ -15,4 +15,7 @@ export interface Post {
 export interface SiteSettings {
   siteName: string;
   siteDescription: string;
+  socialGithub: string;
+  socialTwitter: string;
+  socialLinkedin: string;
 }
