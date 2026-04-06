@@ -22,7 +22,8 @@ interface ApiSettings {
 }
 
 function getApiBase(): string {
-  const base = import.meta.env.BACKEND_URL ?? 'http://localhost:8090';
+  // import.meta.env is build-time only; process.env is read at runtime in SSR standalone mode
+  const base = (import.meta.env.BACKEND_URL as string | undefined) ?? process.env.BACKEND_URL ?? 'http://localhost:8090';
   return base.replace(/\/$/, '');
 }
 
