@@ -4,6 +4,7 @@ export interface PostFrontmatter {
   publishDate: string;
   draft: boolean;
   tags?: string[];
+  heroImage?: string;
 }
 
 export interface Post {

@@ -29,6 +29,9 @@ const html = marked(post.body);
           <span> &middot; {post.frontmatter.tags.join(', ')}</span>
         )}
       </p>
+      {post.frontmatter.heroImage && (
+        <img class="post-hero" src={post.frontmatter.heroImage} alt={post.frontmatter.title} />
+      )}
     </header>
 
     <div class="post-content" set:html={html} />

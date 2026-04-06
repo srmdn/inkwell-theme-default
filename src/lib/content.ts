@@ -11,6 +11,7 @@ interface ApiPost {
   created_at: string;
   updated_at: string;
   body?: string;
+  hero_image?: string;
 }
 
 interface ApiSettings {
@@ -36,6 +37,7 @@ function toPost(api: ApiPost): Post {
       publishDate: api.publish_date,
       draft: api.draft,
       tags: api.tags ? api.tags.split(',').filter(Boolean) : [],
+      heroImage: api.hero_image || undefined,
     },
     body: api.body ?? '',
   };
