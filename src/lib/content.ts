@@ -5,7 +5,7 @@ interface ApiPost {
   slug: string;
   title: string;
   description: string;
-  tags: string; // comma-separated
+  tags: string[] | string;
   draft: boolean;
   publish_date: string;
   created_at: string;
@@ -28,6 +28,12 @@ function getApiBase(): string {
   return base.replace(/\/$/, '');
 }
 
+function normalizeTags(tags: string[] | string): string[] {
+  if (Array.isArray(tags)) return tags.filter(Boolean);
+  if (!tags) return [];
+  return tags.split(',').map((tag) => tag.trim()).filter(Boolean);
+}
+
 function toPost(api: ApiPost): Post {
   return {
     slug: api.slug,
@@ -36,7 +42,7 @@ function toPost(api: ApiPost): Post {
       description: api.description || undefined,
       publishDate: api.publish_date,
       draft: api.draft,
-      tags: api.tags ? api.tags.split(',').filter(Boolean) : [],
+      tags: normalizeTags(api.tags),
       heroImage: api.hero_image || undefined,
     },
     body: api.body ?? '',
