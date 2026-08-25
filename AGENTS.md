@@ -38,3 +38,39 @@ Project-specific (customize after copy):
 - code owners
 - release policy
 - escalation and incident contacts
+## Project: foliocms-theme-default
+
+Default Astro SSR theme for FolioCMS. Reads post content from the
+filesystem via `CONTENT_DIR`. Ships with FolioCMS as the reference theme.
+
+## Stack
+- Framework: Astro SSR (`@astrojs/node` adapter)
+- Language: TypeScript
+- Content: reads Markdown files from `CONTENT_DIR` (set in `.env`)
+- Styling: plain CSS, no framework
+
+## Environment: LOCAL DEV
+
+## Conventions
+- Secrets in `.env`: never committed
+- `.env.example` committed with all variable names, no real values
+- Build output in `dist/`: gitignored
+- No server paths, IPs, or domain names in committed files
+- Public repo: keep all content generic and portable
+
+## Do not modify without confirming
+- Theme contract interface (frontmatter fields, content dir structure)
+  These are defined in the FolioCMS core repo `docs/theme-contract.md`
+
+## Repo visibility: PUBLIC (open source)
+This repo is public. CLAUDE.md and all docs must contain no server IPs,
+real domains, internal paths, or personal infrastructure references.
+
+## Writing Conventions
+- No em dashes (`—`) in commit messages, docs, README, or any written output.
+- Use a colon, semicolon, or rewrite the sentence instead.
+
+## Testing
+Run before every commit: `npm run check` (TypeScript check) and `npm run build` (build verification).
+All checks must pass before committing.
+Write tests for new logic in the same commit if a test framework is in use.
